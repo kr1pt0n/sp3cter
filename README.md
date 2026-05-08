@@ -68,6 +68,25 @@ sudo ./install.sh
 
 ```bash
 python3 app.py mi_password_secreta!$
+   _____ ____  _____   ______ ______ ______ ____ 
+  / ___// __ \|__  /  / ____//_  __// ____// __ \
+  \__ \/ /_/ / /_ <  / /      / /  / __/  / /_/ /
+ ___/ / ____/___/ / / /___   / /  / /___ / _, _/ 
+/____/_/    /____/  \____/  /_/  /_____//_/ |_|  
+                                                  
+      >> Shadow Command & Control System <<
+
+[*] Sp3cter C2 Core: ONLINE
+[*] Password Set: *********************
+[*] Listen: http://0.0.0.0:5000
+
+ * Serving Flask app 'app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.X:5000
+Press CTRL+C to quit
 ```
 
 Abrir en navegador:
