@@ -4,10 +4,11 @@
     </a>
   <br />
 
-  <div>
-    <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
-    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+ <div>
+    <img src="https://img.shields.io/badge/-Python-black?style=for-the-badge&logoColor=white&logo=python&color=3776AB" alt="python" />
+    <img src="https://img.shields.io/badge/-Flask-black?style=for-the-badge&logoColor=white&logo=flask&color=000000" alt="flask" />
+    <img src="https://img.shields.io/badge/-C%23-black?style=for-the-badge&logoColor=white&logo=c-sharp&color=239120" alt="csharp" />
+    <img src="https://img.shields.io/badge/-Windows-black?style=for-the-badge&logoColor=white&logo=windows&color=0078D6" alt="windows" />
   </div>
 
   <h3 align="center">SP3CTER</h3>
