@@ -93,7 +93,7 @@ Press CTRL+C to quit
 Abrir en navegador:
 
 ```text
-http://localhost:5000
+http://192.168.1.X:5000
 ```
 
 ---
