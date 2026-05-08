@@ -73,6 +73,10 @@ sp3cter/
 ├── signatures/
 │   ├── chr.exe
 │   └── fox.exe
+├── assets/
+│   ├── login.png
+│   ├── dashboard.png
+│   └── banner.png
 ├── templates/
 │   ├── index.html
 │   └── login.html
@@ -86,7 +90,7 @@ sp3cter/
 Agrega aquí una captura:
 
 ```md
-![Dashboard](dashboard.png)
+![Dashboard](assets/dashboard.png)
 ```
 
 ---
