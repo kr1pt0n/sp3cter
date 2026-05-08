@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# --- Colores ---
 GREEN='\033[1;32m'
 BLUE='\033[1;34m'
 CYAN='\033[1;36m'
@@ -16,15 +15,12 @@ echo "                                                   "
 echo -e "${NC}"
 echo -e "${BLUE}[*] SP3CTER Installer - Kali/Parrot OS Mode${NC}"
 
-# 1. Actualizar repositorios
 echo -e "${GREEN}[+] Actualizando repositorios...${NC}"
 sudo apt-get update -y
 
-# 2. Instalar el compilador de C# (Indispensable para generar el beacon)
 echo -e "${GREEN}[+] Instalar Mono Compiler (mcs)...${NC}"
 sudo apt-get install mono-mcs -y
 
-# 3. Instalar librerías de Python usando APT (Evita errores de pip en Kali)
 echo -e "${GREEN}[+] Instalando dependencias de Python vía APT...${NC}"
 sudo apt-get install -y \
     python3-flask \
@@ -32,7 +28,6 @@ sudo apt-get install -y \
     python3-pefile \
     python3-requests
 
-# 4. Asegurar permisos de ejecución para el C2
 echo -e "${GREEN}[+] Configurando permisos para app.py...${NC}"
 chmod +x app.py
 
