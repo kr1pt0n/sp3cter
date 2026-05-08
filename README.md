@@ -50,6 +50,16 @@ git clone https://github.com/usuario/sp3cter.git
 cd sp3cter
 chmod +x install.sh
 sudo ./install.sh
+[*] SP3CTER Installer - Kali/Parrot OS Mode
+[+] Actualizando repositorios...
+[+] Instalar Mono Compiler (mcs)...
+[+] Instalando dependencias de Python vía APT...
+[+] Configurando permisos para app.py...
+------------------------------------------------------
+[✔] SP3CTER LISTO PARA OPERAR.
+[!] Ejecuta el C2 con:
+    python3 app.py <tu_password>
+
 ```
 
 ---
