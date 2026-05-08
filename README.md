@@ -106,7 +106,7 @@ No debe utilizarse fuera de entornos autorizados.
 
 ## Developed by ALLPA-SEC Team 
 
-⚠️ Aviso Legal
+Aviso Legal
 Este software ha sido creado con fines exclusivamente educativos y para pruebas de penetración autorizadas. El uso de SP3CTER contra objetivos sin consentimiento previo es ilegal y está penado por la ley. El desarrollador no se hace responsable del mal uso de esta herramienta.
 
 Developed by ALLPA-SEC Team
