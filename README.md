@@ -13,7 +13,7 @@
   <h3 align="center">SP3CTER - Shadow Command & Control System</h3>
 
    <div align="center">
-     SP3CTER es un Framework C2 (Command & Control) ligero y potente diseñado para operaciones de Red Team en entornos Windows. Cuenta con una interfaz táctica Aqua-Dark y un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
+     SP3CTER es un Framework C2 ligero y potente diseñado para operaciones de Red Team, cuenta con un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
     </div>
 </div>
 
