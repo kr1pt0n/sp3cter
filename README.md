@@ -46,7 +46,7 @@ Este proyecto está optimizado para distribuciones de seguridad. El instalador a
 ### Setup
 
 ```bash
-git clone https://github.com/usuario/sp3cter.git
+git clone https://github.com/kr1pt0n/sp3cter.git
 cd sp3cter
 chmod +x install.sh
 sudo ./install.sh
