@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
   </div>
 
-  <h3 align="center">SP3CTER - Shadow Command & Control System</h3>
+  <h3 align="center">SP3CTER</h3>
 
    <div align="center">
      SP3CTER es un Framework C2 ligero y potente diseñado para operaciones de Red Team, cuenta con un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
