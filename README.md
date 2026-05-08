@@ -119,13 +119,10 @@ sp3cter/
 
 ---
 
-## Dashboard
+## Capturas
 
-Agrega aquí una captura:
+Totalmente personalizable - Estilo Dark Aqua :
 
-```md
-![Dashboard](assets/dashboard.png)
-```
 <img src="https://raw.githubusercontent.com/kr1pt0n/sp3cter/refs/heads/main/assets/login.png" alt="Project Banner">
 <img src="https://raw.githubusercontent.com/kr1pt0n/sp3cter/refs/heads/main/assets/dashboard.png" alt="Project Banner">
 ---
