@@ -1,17 +1,22 @@
-# SP3CTER - Shadow Command & Control System
+<div align="center">
+  <br />
+      <img src="asses/banner.png" alt="Project Banner">
+    </a>
+  <br />
 
-**SP3CTER** es un Framework C2 (Command & Control) ligero y potente diseñado para operaciones de Red Team en entornos Windows. Cuenta con una interfaz táctica **Aqua-Dark** y un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
+  <div>
+    <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
+    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+  </div>
 
-```text
-    _____ ____  _____   ______ ______ ______ ____ 
-   / ___// __ \|__  /  / ____//_  __// ____// __ \
-   \__ \/ /_/ / /_ <  / /      / /  / __/  / /_/ /
-  ___/ / ____/___/ / / /___   / /  / /___ / _, _/ 
- /____/_/    /____/  \____/  /_/  /_____//_/ |_|  
+  <h3 align="center">SP3CTER - Shadow Command & Control System</h3>
 
-       >> Shadow Command & Control System <<
+   <div align="center">
+     SP3CTER es un Framework C2 (Command & Control) ligero y potente diseñado para operaciones de Red Team en entornos Windows. Cuenta con una interfaz táctica Aqua-Dark y un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
+    </div>
+</div>
 
-```
 ## Características
 
 - **Servidor C2 Core**
