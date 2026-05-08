@@ -14,7 +14,7 @@
   <h3 align="center">SP3CTER</h3>
 
    <div align="center">
-     SP3CTER es un Framework C2 ligero y potente diseñado para operaciones de Red Team, cuenta con un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
+     SP3CTER es un C2 ligero y potente diseñado para operaciones de Red Team, cuenta con un sistema de generación de beacons con técnicas de evasión y clonado de firmas.
     </div>
 </div>
 
