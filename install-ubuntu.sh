@@ -24,18 +24,15 @@ sudo apt-get update -y
 echo -e "${GREEN}[+] Instalando Mono Compiler Framework (mcs)...${NC}"
 sudo apt-get install dirmngr ca-certificates gnupg-utils -y
 
-# 3. Añadir el repositorio oficial estable de Mono a tus fuentes de APT
-echo "deb https://mono-project.com stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-
-# 4. Instalar el compilador de C# (Para generar los implantes de Windows)
+# 3. Instalar el compilador de C# (Para generar los implantes de Windows)
 echo -e "${GREEN}[+] Instalando Mono Compiler Framework (mcs)...${NC}"
 sudo apt-get install mono-mcs mono-complete -y
 
-# 5. Instalar el entorno de Go (Para generar los implantes nativos de Linux y macOS)
+# 4. Instalar el entorno de Go (Para generar los implantes nativos de Linux y macOS)
 echo -e "${GREEN}[+] Instalando Go Compiler Framework (Golang)...${NC}"
 sudo apt-get install golang -y
 
-# 6. Instalar dependencias de Python vía APT (Evita bloqueos de entornos virtuales de PIP en Kali)
+# 5. Instalar dependencias de Python vía APT (Evita bloqueos de entornos virtuales de PIP en Kali)
 echo -e "${GREEN}[+] Instalando dependencias del Servidor vía APT...${NC}"
 sudo apt-get install -y \
     python3-flask \
@@ -46,7 +43,7 @@ sudo apt-get install -y \
     sqlite3 \
     python3-pip
 
-# 7. Configurar permisos de ejecución y entorno seguro
+# 6. Configurar permisos de ejecución y entorno seguro
 echo -e "${GREEN}[+] Configurando permisos de infraestructura...${NC}"
 chmod +x app.py
 
