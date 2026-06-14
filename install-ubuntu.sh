@@ -20,14 +20,14 @@ echo -e "${BLUE}[*] SP3CTER Installer - Multi-Operator & Cross-Platform Mode${NC
 echo -e "${GREEN}[+] Actualizando repositorios del sistema...${NC}"
 sudo apt-get update -y
 
-# 4. Instalar prerrequisitos de firmas y llaves (Dependencias de los implantes)
+# 2. Instalar prerrequisitos de firmas y llaves (Dependencias de los implantes)
 echo -e "${GREEN}[+] Instalando Mono Compiler Framework (mcs)...${NC}"
 sudo apt-get install dirmngr ca-certificates gnupg-utils -y
 
-# 2. Añadir el repositorio oficial estable de Mono a tus fuentes de APT
+# 3. Añadir el repositorio oficial estable de Mono a tus fuentes de APT
 echo "deb https://mono-project.com stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 
-# 3. Instalar el compilador de C# (Para generar los implantes de Windows)
+# 4. Instalar el compilador de C# (Para generar los implantes de Windows)
 echo -e "${GREEN}[+] Instalando Mono Compiler Framework (mcs)...${NC}"
 sudo apt-get install mono-mcs mono-complete -y
 
