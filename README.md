@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-      <img src="https://raw.githubusercontent.com/kr1pt0n/sp3cter/refs/heads/main/assets/banner.png" alt="Project Banner">
+      <img src="https://i.ibb.co/F4YdsHZX/Chat-GPT-Image-15-jun-2026-02-03-43-p-m.png" alt="Project Banner">
     </a>
   <br />
 
