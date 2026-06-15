@@ -122,7 +122,7 @@ sp3cter/
 
 ## Capturas
 
-Totalmente personalizable - Estilo Dark Aqua :
+Totalmente personalizable:
 
 <img src="https://i.ibb.co/pvN9PrHk/dashboard.png" alt="Project Banner">
 <img src="https://i.ibb.co/0j2nWkSK/login.png" alt="Project Banner">
