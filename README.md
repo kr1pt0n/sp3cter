@@ -25,8 +25,9 @@
 ### Servidor C2 Core
 
 * Backend Flask ligero y rápido.
+* Contraseña generada por el operador al iniciar el C2.
 * Autenticación dinámica mediante contraseña definida al iniciar el servidor.
-* Gestión de sesiones seguras.
+* Gestión segura de sesiones mediante cookies HttpOnly.
 * Base de datos SQLite integrada.
 
 ### Generador de Beacons
@@ -45,7 +46,7 @@
 
 * Inserción automática de junk data.
 * Modificación del tamaño final del ejecutable.
-* Personalización del nivel de inflado del binario.
+* Configuración personalizable del tamaño final del ejecutable.
 
 ### Panel Aqua
 
