@@ -168,9 +168,12 @@ sp3cter/
 
 ## Capturas
 
-Totalmente personalizable:
+Dashboard:
 
 <img src="https://i.ibb.co/pvN9PrHk/dashboard.png" alt="Project Banner">
+
+Login:
+
 <img src="https://i.ibb.co/0j2nWkSK/login.png" alt="Project Banner">
 
 ---
