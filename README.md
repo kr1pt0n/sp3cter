@@ -124,7 +124,7 @@ sp3cter/
 
 Totalmente personalizable - Estilo Dark Aqua :
 
-<img src="https://raw.githubusercontent.com/kr1pt0n/sp3cter/refs/heads/main/assets/login.png" alt="Project Banner">
+<img src="https://i.ibb.co/pvN9PrHk/dashboard.png" alt="Project Banner">
 <img src="https://raw.githubusercontent.com/kr1pt0n/sp3cter/refs/heads/main/assets/dashboard.png" alt="Project Banner">
 ---
 
