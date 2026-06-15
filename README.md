@@ -39,7 +39,7 @@
 
 * Clonado automático de metadatos PE.
 * Uso de plantillas legítimas para replicar información descriptiva del binario.
-* Soporte para múltiples firmas incluidas en la carpeta `signatures`.
+* Soporte para múltiples plantillas PE incluidas en la carpeta`signatures`.
 
 ### Bloating Engine
 
