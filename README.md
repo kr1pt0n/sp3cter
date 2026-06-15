@@ -33,7 +33,7 @@
 
 * Generación dinámica de agentes Windows en C#.
 * Compilación automática mediante Mono Compiler.
-* Compatible con Kali Linux, Parrot OS y Ubuntu 24.04.
+* Generación de beacons para Windows, Linux, MacOS.
 
 ### PE Metadata Cloning
 
